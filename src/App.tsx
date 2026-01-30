@@ -9,6 +9,7 @@ import { SettingsMenu } from './components/SettingsMenu'
 import { WeekNav } from './components/WeekNav'
 import { TimeList } from './components/TimeList'
 import { TimeGrid } from './components/TimeGrid'
+import { OutputPreview } from './components/OutputPreview'
 import { ActionFooter } from './components/ActionFooter'
 
 function App() {
@@ -81,7 +82,7 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto p-4">
+      <main className="max-w-6xl mx-auto p-4">
         <div className="md:hidden">
           <TimeList
             mode={mode}
@@ -93,16 +94,29 @@ function App() {
             locale={locale}
           />
         </div>
-        <div className="hidden md:block">
-          <TimeGrid
-            mode={mode}
-            weekStart={weekStart}
-            selectedSlots={selectedSlots}
-            onToggle={toggleSlot}
-            onSelect={selectSlots}
-            timeFormat={timeFormat}
-            locale={locale}
-          />
+        <div className="hidden md:flex gap-6">
+          <div className="flex-1 min-w-0">
+            <TimeGrid
+              mode={mode}
+              weekStart={weekStart}
+              selectedSlots={selectedSlots}
+              onToggle={toggleSlot}
+              onSelect={selectSlots}
+              timeFormat={timeFormat}
+              locale={locale}
+            />
+          </div>
+          <div className="hidden xl:block w-80 flex-shrink-0">
+            <OutputPreview
+              mode={mode}
+              weekStart={weekStart}
+              selectedSlots={selectedSlots}
+              timeFormat={timeFormat}
+              locale={locale}
+              localTimezone={localTimezone}
+              targetTimezone={targetTimezone}
+            />
+          </div>
         </div>
       </main>
 
