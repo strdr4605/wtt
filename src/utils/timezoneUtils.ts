@@ -1,5 +1,16 @@
+import type { TimeFormat } from '../types'
+
 export function getUserTimezone(): string {
   return Intl.DateTimeFormat().resolvedOptions().timeZone
+}
+
+export function getUserTimeFormat(): TimeFormat {
+  const formatted = new Intl.DateTimeFormat(navigator.language, {
+    hour: 'numeric',
+  }).format(new Date(2000, 0, 1, 13))
+
+  // If contains AM/PM or am/pm, it's 12h format
+  return /[ap]m/i.test(formatted) ? '12h' : '24h'
 }
 
 export function getTimezoneAbbr(timezone: string): string {

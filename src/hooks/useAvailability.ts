@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react'
 import type { Mode, SlotKey, TimeFormat } from '../types'
 import { getMonday, addDays } from '../utils/dateUtils'
-import { getUserTimezone } from '../utils/timezoneUtils'
+import { getUserTimezone, getUserTimeFormat } from '../utils/timezoneUtils'
 
 export function useAvailability() {
   const [mode, setMode] = useState<Mode>('week')
-  const [timeFormat, setTimeFormat] = useState<TimeFormat>('12h')
+  const [timeFormat, setTimeFormat] = useState<TimeFormat>(() => getUserTimeFormat())
   const [weekStart, setWeekStart] = useState(() => getMonday(new Date()))
   const [selectedSlots, setSelectedSlots] = useState<Set<SlotKey>>(new Set())
   const [localTimezone] = useState(() => getUserTimezone())
