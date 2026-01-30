@@ -1,0 +1,116 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#ffffff"/>
+
+  <!-- Title area -->
+  <text x="60" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="#111827">WTT</text>
+  <text x="200" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#6b7280">What Time Today</text>
+
+  <!-- Grid container -->
+  <g transform="translate(60, 120)">
+    <!-- Day headers -->
+    <text x="80" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#374151" text-anchor="middle">Mon</text>
+    <text x="180" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#374151" text-anchor="middle">Tue</text>
+    <text x="280" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#374151" text-anchor="middle">Wed</text>
+    <text x="380" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#374151" text-anchor="middle">Thu</text>
+    <text x="480" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#374151" text-anchor="middle">Fri</text>
+    <text x="580" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">Sat</text>
+    <text x="680" y="30" font-family="system-ui, sans-serif" font-size="14" fill="#6b7280" text-anchor="middle">Sun</text>
+
+    <!-- Hour labels -->
+    <text x="20" y="75" font-family="system-ui, sans-serif" font-size="12" fill="#9ca3af" text-anchor="end">9am</text>
+    <text x="20" y="120" font-family="system-ui, sans-serif" font-size="12" fill="#9ca3af" text-anchor="end">10am</text>
+    <text x="20" y="165" font-family="system-ui, sans-serif" font-size="12" fill="#9ca3af" text-anchor="end">11am</text>
+    <text x="20" y="210" font-family="system-ui, sans-serif" font-size="12" fill="#9ca3af" text-anchor="end">12pm</text>
+    <text x="20" y="255" font-family="system-ui, sans-serif" font-size="12" fill="#9ca3af" text-anchor="end">1pm</text>
+    <text x="20" y="300" font-family="system-ui, sans-serif" font-size="12" fill="#9ca3af" text-anchor="end">2pm</text>
+    <text x="20" y="345" font-family="system-ui, sans-serif" font-size="12" fill="#9ca3af" text-anchor="end">3pm</text>
+    <text x="20" y="390" font-family="system-ui, sans-serif" font-size="12" fill="#9ca3af" text-anchor="end">4pm</text>
+
+    <!-- Grid cells - Row 1 (9am) -->
+    <rect x="40" y="50" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="140" y="50" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="240" y="50" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="340" y="50" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="440" y="50" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="540" y="50" width="80" height="40" rx="6" fill="#e5e7eb"/>
+    <rect x="640" y="50" width="80" height="40" rx="6" fill="#e5e7eb"/>
+
+    <!-- Grid cells - Row 2 (10am) -->
+    <rect x="40" y="95" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="140" y="95" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="240" y="95" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="340" y="95" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="440" y="95" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="540" y="95" width="80" height="40" rx="6" fill="#e5e7eb"/>
+    <rect x="640" y="95" width="80" height="40" rx="6" fill="#e5e7eb"/>
+
+    <!-- Grid cells - Row 3 (11am) -->
+    <rect x="40" y="140" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="140" y="140" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="240" y="140" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="340" y="140" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="440" y="140" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="540" y="140" width="80" height="40" rx="6" fill="#e5e7eb"/>
+    <rect x="640" y="140" width="80" height="40" rx="6" fill="#e5e7eb"/>
+
+    <!-- Grid cells - Row 4 (12pm) -->
+    <rect x="40" y="185" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="140" y="185" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="240" y="185" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="340" y="185" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="440" y="185" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="540" y="185" width="80" height="40" rx="6" fill="#e5e7eb"/>
+    <rect x="640" y="185" width="80" height="40" rx="6" fill="#e5e7eb"/>
+
+    <!-- Grid cells - Row 5 (1pm) -->
+    <rect x="40" y="230" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="140" y="230" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="240" y="230" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="340" y="230" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="440" y="230" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="540" y="230" width="80" height="40" rx="6" fill="#e5e7eb"/>
+    <rect x="640" y="230" width="80" height="40" rx="6" fill="#e5e7eb"/>
+
+    <!-- Grid cells - Row 6 (2pm) -->
+    <rect x="40" y="275" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="140" y="275" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="240" y="275" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="340" y="275" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="440" y="275" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="540" y="275" width="80" height="40" rx="6" fill="#e5e7eb"/>
+    <rect x="640" y="275" width="80" height="40" rx="6" fill="#e5e7eb"/>
+
+    <!-- Grid cells - Row 7 (3pm) -->
+    <rect x="40" y="320" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="140" y="320" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="240" y="320" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="340" y="320" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="440" y="320" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="540" y="320" width="80" height="40" rx="6" fill="#e5e7eb"/>
+    <rect x="640" y="320" width="80" height="40" rx="6" fill="#e5e7eb"/>
+
+    <!-- Grid cells - Row 8 (4pm) -->
+    <rect x="40" y="365" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="140" y="365" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="240" y="365" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="340" y="365" width="80" height="40" rx="6" fill="#f3f4f6"/>
+    <rect x="440" y="365" width="80" height="40" rx="6" fill="#2563eb"/>
+    <rect x="540" y="365" width="80" height="40" rx="6" fill="#e5e7eb"/>
+    <rect x="640" y="365" width="80" height="40" rx="6" fill="#e5e7eb"/>
+  </g>
+
+  <!-- Tagline -->
+  <text x="950" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#374151" text-anchor="middle">Share your availability</text>
+  <text x="950" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#2563eb" font-weight="bold" text-anchor="middle">as text</text>
+  <text x="950" y="220" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#374151" text-anchor="middle">in seconds</text>
+
+  <!-- Example output -->
+  <rect x="800" y="260" width="340" height="280" rx="12" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="820" y="295" font-family="ui-monospace, monospace" font-size="16" fill="#374151">I'm available:</text>
+  <text x="820" y="325" font-family="ui-monospace, monospace" font-size="16" fill="#374151">Mon: 10am-12pm, 3-5pm</text>
+  <text x="820" y="355" font-family="ui-monospace, monospace" font-size="16" fill="#374151">Tue: 9am-12pm, 2-4pm</text>
+  <text x="820" y="385" font-family="ui-monospace, monospace" font-size="16" fill="#374151">Wed: 9-11am, 1-3pm</text>
+  <text x="820" y="415" font-family="ui-monospace, monospace" font-size="16" fill="#374151">Thu: 10am-12pm, 1-3pm</text>
+  <text x="820" y="445" font-family="ui-monospace, monospace" font-size="16" fill="#374151">Fri: 11am-12pm, 1-5pm</text>
+</svg>
