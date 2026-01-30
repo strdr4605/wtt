@@ -2,6 +2,8 @@
 
 Mobile-first time availability picker. Mark slots, copy formatted text.
 
+**Live:** https://strdr4605.com/wtt/
+
 ## Credits
 
 Inspired by [what-time-today](https://github.com/jonathanmhcai/what-time-today) by [@jonathanmhcai](https://github.com/jonathanmhcai)
