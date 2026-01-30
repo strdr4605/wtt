@@ -1,0 +1,13 @@
+{
+  "app.title": "WTT",
+  "mode.week": "This Week",
+  "mode.generic": "Generic",
+  "nav.today": "Today",
+  "nav.back": "Back",
+  "nav.next": "Next",
+  "action.copy": "Copy",
+  "action.clear": "Clear",
+  "action.clearConfirm": "Clear {count} slots?",
+  "output.prefix": "I'm available:",
+  "copied": "Copied!"
+}
