@@ -8,10 +8,11 @@ type Props = {
   weekStart: Date
   selectedSlots: Set<SlotKey>
   onToggle: (key: SlotKey) => void
+  onSelect: (keys: SlotKey[]) => void
   timeFormat: TimeFormat
 }
 
-export function TimeList({ mode, weekStart, selectedSlots, onToggle, timeFormat }: Props) {
+export function TimeList({ mode, weekStart, selectedSlots, onToggle, onSelect, timeFormat }: Props) {
   const weekDates = mode === 'week' ? getWeekDates(weekStart) : undefined
   const today = new Date()
   today.setHours(0, 0, 0, 0)
@@ -32,6 +33,7 @@ export function TimeList({ mode, weekStart, selectedSlots, onToggle, timeFormat 
           date={weekDates?.[idx]}
           selectedSlots={selectedSlots}
           onToggle={onToggle}
+          onSelect={onSelect}
           isToday={mode === 'week' && isToday(weekDates?.[idx])}
           timeFormat={timeFormat}
         />

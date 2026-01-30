@@ -80,6 +80,7 @@ function App() {
             weekStart={weekStart}
             selectedSlots={selectedSlots}
             onToggle={toggleSlot}
+            onSelect={selectSlots}
             timeFormat={timeFormat}
           />
         </div>
