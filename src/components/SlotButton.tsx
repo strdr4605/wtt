@@ -1,15 +1,10 @@
-import type { Hour } from '../types'
-import { useLocale } from '../hooks/useLocale'
-
 type Props = {
-  hour: Hour
+  hourLabel: string
   selected: boolean
   onToggle: () => void
 }
 
-export function SlotButton({ hour, selected, onToggle }: Props) {
-  const { formatHour } = useLocale()
-
+export function SlotButton({ hourLabel, selected, onToggle }: Props) {
   return (
     <button
       type="button"
@@ -22,7 +17,7 @@ export function SlotButton({ hour, selected, onToggle }: Props) {
         }
       `}
     >
-      {formatHour(hour)}
+      {hourLabel}
     </button>
   )
 }

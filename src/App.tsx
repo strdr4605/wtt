@@ -1,16 +1,18 @@
 import { useLocale } from './hooks/useLocale'
 import { useAvailability } from './hooks/useAvailability'
 import { ModeToggle } from './components/ModeToggle'
+import { TimeFormatToggle } from './components/TimeFormatToggle'
 import { WeekNav } from './components/WeekNav'
 import { TimeList } from './components/TimeList'
 import { TimeGrid } from './components/TimeGrid'
 import { ActionFooter } from './components/ActionFooter'
 
 function App() {
-  const { t } = useLocale()
   const {
     mode,
     setMode,
+    timeFormat,
+    setTimeFormat,
     weekStart,
     selectedSlots,
     toggleSlot,
@@ -21,18 +23,23 @@ function App() {
     goToNext,
   } = useAvailability()
 
+  const { t } = useLocale(timeFormat)
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 pb-20">
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4">
         <div className="max-w-4xl mx-auto space-y-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2">
             <h1 className="text-xl font-bold leading-tight">
               {t('app.title')}
               <span className="block md:inline text-sm font-normal text-gray-500 dark:text-gray-400">
                 {' '}{t('app.subtitle')}
               </span>
             </h1>
-            <ModeToggle mode={mode} onChange={setMode} />
+            <div className="flex gap-2">
+              <TimeFormatToggle timeFormat={timeFormat} onChange={setTimeFormat} />
+              <ModeToggle mode={mode} onChange={setMode} />
+            </div>
           </div>
           {mode === 'week' && (
             <WeekNav
@@ -52,6 +59,7 @@ function App() {
             weekStart={weekStart}
             selectedSlots={selectedSlots}
             onToggle={toggleSlot}
+            timeFormat={timeFormat}
           />
         </div>
         <div className="hidden md:block">
@@ -61,6 +69,7 @@ function App() {
             selectedSlots={selectedSlots}
             onToggle={toggleSlot}
             onSelect={selectSlots}
+            timeFormat={timeFormat}
           />
         </div>
       </main>
@@ -70,6 +79,7 @@ function App() {
         weekStart={weekStart}
         selectedSlots={selectedSlots}
         onClear={clearSlots}
+        timeFormat={timeFormat}
       />
     </div>
   )

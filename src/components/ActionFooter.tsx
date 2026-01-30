@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { SlotKey, Mode } from '../types'
+import type { SlotKey, Mode, TimeFormat } from '../types'
 import { useLocale } from '../hooks/useLocale'
 import { formatOutput } from '../utils/formatOutput'
 import { getWeekDates } from '../utils/dateUtils'
@@ -9,10 +9,11 @@ type Props = {
   weekStart: Date
   selectedSlots: Set<SlotKey>
   onClear: () => void
+  timeFormat: TimeFormat
 }
 
-export function ActionFooter({ mode, weekStart, selectedSlots, onClear }: Props) {
-  const { t, formatWeekday, formatHour, formatDate } = useLocale()
+export function ActionFooter({ mode, weekStart, selectedSlots, onClear, timeFormat }: Props) {
+  const { t, formatWeekday, formatHour, formatDate } = useLocale(timeFormat)
   const [copied, setCopied] = useState(false)
   const [confirmClear, setConfirmClear] = useState(false)
 

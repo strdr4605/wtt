@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import en from '../locales/en.json'
-import type { WeekDay, Hour } from '../types'
+import type { WeekDay, Hour, TimeFormat } from '../types'
 
 type TranslationKey = keyof typeof en
 
-export function useLocale() {
+export function useLocale(timeFormat: TimeFormat = '12h') {
   const locale = navigator.language
 
   const t = (key: TranslationKey, params?: Record<string, string | number>): string => {
@@ -22,7 +22,8 @@ export function useLocale() {
       date: new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'numeric' }),
       weekdayShort: new Intl.DateTimeFormat(locale, { weekday: 'short' }),
       weekdayLong: new Intl.DateTimeFormat(locale, { weekday: 'long' }),
-      hour: new Intl.DateTimeFormat(locale, { hour: 'numeric', hour12: true }),
+      hour12: new Intl.DateTimeFormat(locale, { hour: 'numeric', hour12: true }),
+      hour24: new Intl.DateTimeFormat(locale, { hour: 'numeric', hour12: false }),
     }),
     [locale]
   )
@@ -36,8 +37,11 @@ export function useLocale() {
   }
 
   const formatHour = (hour: Hour): string => {
+    if (timeFormat === '24h') {
+      return `${hour}:00`
+    }
     const date = new Date(2024, 0, 1, hour)
-    return formatters.hour.format(date).toLowerCase().replace(' ', '')
+    return formatters.hour12.format(date).toLowerCase().replace(' ', '')
   }
 
   return { t, formatDate, formatWeekday, formatHour, locale }

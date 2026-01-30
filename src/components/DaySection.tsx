@@ -1,4 +1,4 @@
-import type { WeekDay, Hour, SlotKey } from '../types'
+import type { WeekDay, Hour, SlotKey, TimeFormat } from '../types'
 import { HOURS, makeSlotKey } from '../types'
 import { useLocale } from '../hooks/useLocale'
 import { SlotButton } from './SlotButton'
@@ -9,10 +9,11 @@ type Props = {
   selectedSlots: Set<SlotKey>
   onToggle: (key: SlotKey) => void
   isToday?: boolean
+  timeFormat: TimeFormat
 }
 
-export function DaySection({ weekday, date, selectedSlots, onToggle, isToday }: Props) {
-  const { formatWeekday, formatDate } = useLocale()
+export function DaySection({ weekday, date, selectedSlots, onToggle, isToday, timeFormat }: Props) {
+  const { formatWeekday, formatDate, formatHour } = useLocale(timeFormat)
   const isWeekend = weekday === 'saturday' || weekday === 'sunday'
 
   const label = date
@@ -34,7 +35,7 @@ export function DaySection({ weekday, date, selectedSlots, onToggle, isToday }: 
           return (
             <SlotButton
               key={key}
-              hour={hour}
+              hourLabel={formatHour(hour)}
               selected={selectedSlots.has(key)}
               onToggle={() => onToggle(key)}
             />

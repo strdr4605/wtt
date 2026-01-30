@@ -1,5 +1,7 @@
 export type Mode = 'week' | 'generic'
 
+export type TimeFormat = '12h' | '24h'
+
 export type WeekDay =
   | 'monday'
   | 'tuesday'

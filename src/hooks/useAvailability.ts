@@ -1,9 +1,10 @@
 import { useState, useCallback } from 'react'
-import type { Mode, SlotKey } from '../types'
+import type { Mode, SlotKey, TimeFormat } from '../types'
 import { getMonday, addDays } from '../utils/dateUtils'
 
 export function useAvailability() {
   const [mode, setMode] = useState<Mode>('week')
+  const [timeFormat, setTimeFormat] = useState<TimeFormat>('12h')
   const [weekStart, setWeekStart] = useState(() => getMonday(new Date()))
   const [selectedSlots, setSelectedSlots] = useState<Set<SlotKey>>(new Set())
 
@@ -46,6 +47,8 @@ export function useAvailability() {
   return {
     mode,
     setMode,
+    timeFormat,
+    setTimeFormat,
     weekStart,
     selectedSlots,
     toggleSlot,
