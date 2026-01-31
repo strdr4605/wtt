@@ -2,6 +2,7 @@ import { useLocale } from './hooks/useLocale'
 import { useAvailability } from './hooks/useAvailability'
 import { ModeToggle } from './components/ModeToggle'
 import { TimeFormatToggle } from './components/TimeFormatToggle'
+import { IntervalToggle } from './components/IntervalToggle'
 import { TimezoneSelect } from './components/TimezoneSelect'
 import { LocaleSelect } from './components/LocaleSelect'
 import { AboutButton } from './components/AboutButton'
@@ -32,6 +33,8 @@ function App() {
     setTargetTimezone,
     locale,
     setLocale,
+    interval,
+    setInterval,
   } = useAvailability()
 
   const { t } = useLocale(timeFormat, locale)
@@ -39,8 +42,8 @@ function App() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 pb-20">
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4">
-        <div className="max-w-4xl mx-auto space-y-3">
-          <div className="flex items-center justify-between gap-2">
+        <div className="max-w-5xl mx-auto space-y-3">
+          <div className="flex items-center justify-between gap-4">
             <h1 className="text-xl font-bold leading-tight">
               {t('app.title')}
               <span className="block md:inline text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -58,6 +61,8 @@ function App() {
                 onModeChange={setMode}
                 locale={locale}
                 onLocaleChange={setLocale}
+                interval={interval}
+                onIntervalChange={setInterval}
               />
             </div>
             <div className="hidden md:flex gap-2">
@@ -67,6 +72,7 @@ function App() {
                 onChange={setTargetTimezone}
               />
               <TimeFormatToggle timeFormat={timeFormat} onChange={setTimeFormat} />
+              <IntervalToggle interval={interval} onChange={setInterval} />
               <ModeToggle mode={mode} onChange={setMode} />
               <LocaleSelect locale={locale} onChange={setLocale} />
               <AboutButton />
@@ -93,6 +99,7 @@ function App() {
             onToggle={toggleSlot}
             timeFormat={timeFormat}
             locale={locale}
+            interval={interval}
           />
         </div>
         <div className="hidden md:flex gap-6">
@@ -105,6 +112,7 @@ function App() {
               onSelect={selectSlots}
               timeFormat={timeFormat}
               locale={locale}
+              interval={interval}
             />
           </div>
           <div className="hidden xl:block w-80 flex-shrink-0">
@@ -116,6 +124,7 @@ function App() {
               locale={locale}
               localTimezone={localTimezone}
               targetTimezone={targetTimezone}
+              interval={interval}
             />
           </div>
         </div>
@@ -130,6 +139,7 @@ function App() {
         localTimezone={localTimezone}
         targetTimezone={targetTimezone}
         locale={locale}
+        interval={interval}
       />
     </div>
   )

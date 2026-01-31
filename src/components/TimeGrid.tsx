@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
-import type { Mode, SlotKey, WeekDay, Hour, TimeFormat, Locale } from '../types'
-import { WEEKDAYS, HOURS, makeSlotKey } from '../types'
+import type { Mode, SlotKey, WeekDay, Hour, TimeFormat, Locale, Interval, Minute, Slot } from '../types'
+import { WEEKDAYS, makeSlotKey, getSlots } from '../types'
 import { getWeekDates } from '../utils/dateUtils'
 import { useLocale } from '../hooks/useLocale'
 
@@ -12,10 +12,12 @@ type Props = {
   onSelect: (keys: SlotKey[]) => void
   timeFormat: TimeFormat
   locale: Locale
+  interval: Interval
 }
 
-export function TimeGrid({ mode, weekStart, selectedSlots, onToggle, onSelect, timeFormat, locale }: Props) {
-  const { formatWeekday, formatDate, formatHour } = useLocale(timeFormat, locale)
+export function TimeGrid({ mode, weekStart, selectedSlots, onToggle, onSelect, timeFormat, locale, interval }: Props) {
+  const { formatWeekday, formatDate, formatTime } = useLocale(timeFormat, locale)
+  const slots = getSlots(interval)
   const weekDates = mode === 'week' ? getWeekDates(weekStart) : undefined
 
   const today = new Date()
@@ -27,38 +29,42 @@ export function TimeGrid({ mode, weekStart, selectedSlots, onToggle, onSelect, t
     return date.getTime() === today.getTime()
   }) ?? -1
 
-  const [dragStart, setDragStart] = useState<{ weekday: WeekDay; hour: Hour } | null>(null)
-  const [dragEnd, setDragEnd] = useState<{ weekday: WeekDay; hour: Hour } | null>(null)
+  const [dragStart, setDragStart] = useState<{ weekday: WeekDay; hour: Hour; minute: Minute } | null>(null)
+  const [dragEnd, setDragEnd] = useState<{ weekday: WeekDay; hour: Hour; minute: Minute } | null>(null)
+
+  const getSlotIndex = (slot: Slot): number => {
+    return slots.findIndex((s) => s.hour === slot.hour && s.minute === slot.minute)
+  }
 
   const getDragSlots = useCallback((): SlotKey[] => {
     if (!dragStart || !dragEnd) return []
     const startDayIdx = WEEKDAYS.indexOf(dragStart.weekday)
     const endDayIdx = WEEKDAYS.indexOf(dragEnd.weekday)
-    const startHourIdx = HOURS.indexOf(dragStart.hour)
-    const endHourIdx = HOURS.indexOf(dragEnd.hour)
+    const startSlotIdx = getSlotIndex({ hour: dragStart.hour, minute: dragStart.minute })
+    const endSlotIdx = getSlotIndex({ hour: dragEnd.hour, minute: dragEnd.minute })
 
     const minDay = Math.min(startDayIdx, endDayIdx)
     const maxDay = Math.max(startDayIdx, endDayIdx)
-    const minHour = Math.min(startHourIdx, endHourIdx)
-    const maxHour = Math.max(startHourIdx, endHourIdx)
+    const minSlot = Math.min(startSlotIdx, endSlotIdx)
+    const maxSlot = Math.max(startSlotIdx, endSlotIdx)
 
-    const slots: SlotKey[] = []
+    const result: SlotKey[] = []
     for (let d = minDay; d <= maxDay; d++) {
-      for (let h = minHour; h <= maxHour; h++) {
-        slots.push(makeSlotKey(WEEKDAYS[d], HOURS[h]))
+      for (let s = minSlot; s <= maxSlot; s++) {
+        result.push(makeSlotKey(WEEKDAYS[d], slots[s].hour, slots[s].minute))
       }
     }
-    return slots
-  }, [dragStart, dragEnd])
+    return result
+  }, [dragStart, dragEnd, slots])
 
-  const handleMouseDown = (weekday: WeekDay, hour: Hour) => {
-    setDragStart({ weekday, hour })
-    setDragEnd({ weekday, hour })
+  const handleMouseDown = (weekday: WeekDay, hour: Hour, minute: Minute) => {
+    setDragStart({ weekday, hour, minute })
+    setDragEnd({ weekday, hour, minute })
   }
 
-  const handleMouseEnter = (weekday: WeekDay, hour: Hour) => {
+  const handleMouseEnter = (weekday: WeekDay, hour: Hour, minute: Minute) => {
     if (dragStart) {
-      setDragEnd({ weekday, hour })
+      setDragEnd({ weekday, hour, minute })
     }
   }
 
@@ -103,26 +109,27 @@ export function TimeGrid({ mode, weekStart, selectedSlots, onToggle, onSelect, t
           )
         })}
 
-        {HOURS.map((hour) => (
+        {slots.map((slot) => (
           <>
-            <div key={`hour-${hour}`} className="text-right text-xs text-gray-500 pr-2 py-1">
-              {formatHour(hour)}
+            <div key={`slot-${slot.hour}-${slot.minute}`} className="text-right text-xs text-gray-500 pr-2 py-1">
+              {slot.minute === 0 || interval === '30min' ? formatTime(slot.hour, slot.minute) : ''}
             </div>
             {WEEKDAYS.map((weekday, dayIdx) => {
-              const key = makeSlotKey(weekday, hour)
+              const key = makeSlotKey(weekday, slot.hour, slot.minute)
               const isSelected = selectedSlots.has(key)
               const isDragging = dragSlots.has(key)
               const isWeekend = weekday === 'saturday' || weekday === 'sunday'
               const isToday = mode === 'week' && dayIdx === isTodayIdx
+              const cellHeight = interval === '30min' ? 'h-6' : 'h-8'
 
               return (
                 <button
                   key={key}
                   type="button"
-                  onMouseDown={() => handleMouseDown(weekday, hour)}
-                  onMouseEnter={() => handleMouseEnter(weekday, hour)}
+                  onMouseDown={() => handleMouseDown(weekday, slot.hour, slot.minute)}
+                  onMouseEnter={() => handleMouseEnter(weekday, slot.hour, slot.minute)}
                   className={`
-                    h-8 rounded transition-colors
+                    ${cellHeight} rounded transition-colors
                     ${isSelected
                       ? 'bg-blue-600'
                       : isDragging

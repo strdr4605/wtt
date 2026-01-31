@@ -2,6 +2,8 @@ export type Mode = 'week' | 'generic'
 
 export type TimeFormat = '12h' | '24h'
 
+export type Interval = '1h' | '30min'
+
 export type Locale = 'en' | 'ro' | 'ru'
 
 export const LOCALES: { code: Locale; label: string }[] = [
@@ -21,7 +23,13 @@ export type WeekDay =
 
 export type Hour = 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21
 
-export type SlotKey = `${WeekDay}-${Hour}`
+export type Minute = 0 | 30
+
+export type SlotKey = `${WeekDay}-${Hour}-${Minute}`
+
+export const MINUTES: Minute[] = [0, 30]
+
+export type Slot = { hour: Hour; minute: Minute }
 
 export const WEEKDAYS: WeekDay[] = [
   'monday',
@@ -35,13 +43,29 @@ export const WEEKDAYS: WeekDay[] = [
 
 export const HOURS: Hour[] = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
 
-export function makeSlotKey(weekday: WeekDay, hour: Hour): SlotKey {
-  return `${weekday}-${hour}`
+export function makeSlotKey(weekday: WeekDay, hour: Hour, minute: Minute = 0): SlotKey {
+  return `${weekday}-${hour}-${minute}`
 }
 
-export function parseSlotKey(key: SlotKey): { weekday: WeekDay; hour: Hour } {
-  const [weekday, hourStr] = key.split('-') as [WeekDay, string]
-  return { weekday, hour: parseInt(hourStr, 10) as Hour }
+export function parseSlotKey(key: SlotKey): { weekday: WeekDay; hour: Hour; minute: Minute } {
+  const parts = key.split('-')
+  const weekday = parts[0] as WeekDay
+  const hour = parseInt(parts[1], 10) as Hour
+  const minute = parseInt(parts[2], 10) as Minute
+  return { weekday, hour, minute }
+}
+
+export function getSlots(interval: Interval): Slot[] {
+  const slots: Slot[] = []
+  for (const hour of HOURS) {
+    if (interval === '1h') {
+      slots.push({ hour, minute: 0 })
+    } else {
+      slots.push({ hour, minute: 0 })
+      slots.push({ hour, minute: 30 })
+    }
+  }
+  return slots
 }
 
 export const TIMEZONES = [

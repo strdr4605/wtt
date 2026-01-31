@@ -1,26 +1,30 @@
-import type { SlotKey, WeekDay, Hour } from '../types'
+import type { SlotKey, WeekDay, Hour, Minute, Interval } from '../types'
 import { WEEKDAYS, parseSlotKey } from '../types'
 import { convertHour, getTimezoneAbbr } from './timezoneUtils'
 import { addDays } from './dateUtils'
 
 type FormatOptions = {
   formatWeekday: (weekday: WeekDay) => string
-  formatHour: (hour: Hour) => string
+  formatTime: (hour: Hour, minute: Minute) => string
   formatDate?: (date: Date) => string
   weekDates?: Date[]
   prefix: string
   localTimezone?: string
   targetTimezone?: string
+  interval: Interval
 }
 
 type ConvertedSlot = {
   date: Date
   weekday: WeekDay
   hour: number
+  minute: Minute
 }
 
+type TimeSlot = { hour: Hour; minute: Minute }
+
 export function formatOutput(slots: Set<SlotKey>, options: FormatOptions): string {
-  const { formatWeekday, formatHour, formatDate, weekDates, prefix, localTimezone, targetTimezone } = options
+  const { formatWeekday, formatTime, formatDate, weekDates, prefix, localTimezone, targetTimezone, interval } = options
 
   if (slots.size === 0) return ''
 
@@ -31,22 +35,22 @@ export function formatOutput(slots: Set<SlotKey>, options: FormatOptions): strin
     return formatWithTimezoneConversion(slots, options, tzAbbr)
   }
 
-  const byDay = new Map<WeekDay, Hour[]>()
+  const byDay = new Map<WeekDay, TimeSlot[]>()
   slots.forEach((key) => {
-    const { weekday, hour } = parseSlotKey(key)
+    const { weekday, hour, minute } = parseSlotKey(key)
     if (!byDay.has(weekday)) byDay.set(weekday, [])
-    byDay.get(weekday)!.push(hour)
+    byDay.get(weekday)!.push({ hour, minute })
   })
 
   const lines: string[] = [prefix]
 
   WEEKDAYS.forEach((weekday, idx) => {
-    const hours = byDay.get(weekday)
-    if (!hours || hours.length === 0) return
+    const timeSlots = byDay.get(weekday)
+    if (!timeSlots || timeSlots.length === 0) return
 
-    hours.sort((a, b) => a - b)
-    const ranges = mergeHours(hours)
-    const rangeStr = ranges.map((r) => formatRange(r, formatHour)).join(', ')
+    timeSlots.sort((a, b) => a.hour * 60 + a.minute - (b.hour * 60 + b.minute))
+    const ranges = mergeTimeSlots(timeSlots, interval)
+    const rangeStr = ranges.map((r) => formatTimeRange(r, formatTime)).join(', ')
 
     let dayLabel = formatWeekday(weekday)
     if (formatDate && weekDates) {
@@ -64,12 +68,12 @@ function formatWithTimezoneConversion(
   options: FormatOptions,
   tzAbbr: string
 ): string {
-  const { formatWeekday, formatHour, formatDate, weekDates, prefix, localTimezone, targetTimezone } = options
+  const { formatWeekday, formatTime, formatDate, weekDates, prefix, localTimezone, targetTimezone, interval } = options
 
   const convertedSlots: ConvertedSlot[] = []
 
   slots.forEach((key) => {
-    const { weekday, hour } = parseSlotKey(key)
+    const { weekday, hour, minute } = parseSlotKey(key)
     const dayIndex = WEEKDAYS.indexOf(weekday)
     const date = weekDates![dayIndex]
 
@@ -81,26 +85,27 @@ function formatWithTimezoneConversion(
       date: convertedDate,
       weekday: convertedWeekday,
       hour: Math.round(convertedHour),
+      minute,
     })
   })
 
-  const byDate = new Map<string, { date: Date; weekday: WeekDay; hours: number[] }>()
-  convertedSlots.forEach(({ date, weekday, hour }) => {
+  const byDate = new Map<string, { date: Date; weekday: WeekDay; timeSlots: TimeSlot[] }>()
+  convertedSlots.forEach(({ date, weekday, hour, minute }) => {
     const key = date.toISOString().split('T')[0]
     if (!byDate.has(key)) {
-      byDate.set(key, { date, weekday, hours: [] })
+      byDate.set(key, { date, weekday, timeSlots: [] })
     }
-    byDate.get(key)!.hours.push(hour)
+    byDate.get(key)!.timeSlots.push({ hour: hour as Hour, minute })
   })
 
   const sortedDates = Array.from(byDate.entries()).sort(([a], [b]) => a.localeCompare(b))
 
   const lines: string[] = [prefix]
 
-  sortedDates.forEach(([, { date, weekday, hours }]) => {
-    hours.sort((a, b) => a - b)
-    const ranges = mergeHours(hours as Hour[])
-    const rangeStr = ranges.map((r) => formatRange(r, formatHour)).join(', ')
+  sortedDates.forEach(([, { date, weekday, timeSlots }]) => {
+    timeSlots.sort((a, b) => a.hour * 60 + a.minute - (b.hour * 60 + b.minute))
+    const ranges = mergeTimeSlots(timeSlots, interval)
+    const rangeStr = ranges.map((r) => formatTimeRange(r, formatTime)).join(', ')
 
     let dayLabel = formatWeekday(weekday)
     if (formatDate) {
@@ -118,27 +123,40 @@ function getWeekdayFromDate(date: Date): WeekDay {
   return weekdays[date.getDay()]
 }
 
-function mergeHours(hours: Hour[]): Array<[Hour, Hour]> {
-  const ranges: Array<[Hour, Hour]> = []
-  let start = hours[0]
-  let end = hours[0]
+function mergeTimeSlots(slots: TimeSlot[], interval: Interval): Array<[TimeSlot, TimeSlot]> {
+  if (slots.length === 0) return []
 
-  for (let i = 1; i < hours.length; i++) {
-    if (hours[i] === end + 1) {
-      end = hours[i]
+  const ranges: Array<[TimeSlot, TimeSlot]> = []
+  let start = slots[0]
+  let end = slots[0]
+  const step = interval === '1h' ? 60 : 30
+
+  for (let i = 1; i < slots.length; i++) {
+    const endMinutes = end.hour * 60 + end.minute
+    const currentMinutes = slots[i].hour * 60 + slots[i].minute
+
+    if (currentMinutes === endMinutes + step) {
+      end = slots[i]
     } else {
       ranges.push([start, end])
-      start = hours[i]
-      end = hours[i]
+      start = slots[i]
+      end = slots[i]
     }
   }
   ranges.push([start, end])
   return ranges
 }
 
-function formatRange([start, end]: [Hour, Hour], formatHour: (h: Hour) => string): string {
-  if (start === end) {
-    return formatHour(start)
+function addStep(slot: TimeSlot, interval: Interval): TimeSlot {
+  const step = interval === '1h' ? 60 : 30
+  const totalMinutes = slot.hour * 60 + slot.minute + step
+  return { hour: Math.floor(totalMinutes / 60) as Hour, minute: (totalMinutes % 60) as Minute }
+}
+
+function formatTimeRange([start, end]: [TimeSlot, TimeSlot], formatTime: (h: Hour, m: Minute) => string): string {
+  if (start.hour === end.hour && start.minute === end.minute) {
+    return formatTime(start.hour, start.minute)
   }
-  return `${formatHour(start)}-${formatHour((end + 1) as Hour)}`
+  const endPlusStep = addStep(end, start.minute === 0 && end.minute === 0 ? '1h' : '30min')
+  return `${formatTime(start.hour, start.minute)}-${formatTime(endPlusStep.hour, endPlusStep.minute)}`
 }

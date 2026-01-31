@@ -1,4 +1,4 @@
-import type { SlotKey, Mode, TimeFormat, Locale } from '../types'
+import type { SlotKey, Mode, TimeFormat, Locale, Interval } from '../types'
 import { useLocale } from '../hooks/useLocale'
 import { formatOutput } from '../utils/formatOutput'
 import { getWeekDates } from '../utils/dateUtils'
@@ -11,6 +11,7 @@ type Props = {
   locale: Locale
   localTimezone: string
   targetTimezone: string
+  interval: Interval
 }
 
 export function OutputPreview({
@@ -21,18 +22,20 @@ export function OutputPreview({
   locale,
   localTimezone,
   targetTimezone,
+  interval,
 }: Props) {
-  const { t, formatWeekday, formatHour, formatDate } = useLocale(timeFormat, locale)
+  const { t, formatWeekday, formatTime, formatDate } = useLocale(timeFormat, locale)
 
   const weekDates = mode === 'week' ? getWeekDates(weekStart) : undefined
   const text = formatOutput(selectedSlots, {
     formatWeekday,
-    formatHour,
+    formatTime,
     formatDate: mode === 'week' ? formatDate : undefined,
     weekDates,
     prefix: t('output.prefix'),
     localTimezone,
     targetTimezone,
+    interval,
   })
 
   if (selectedSlots.size === 0) {

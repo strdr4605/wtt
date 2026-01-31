@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
-import type { Mode, TimeFormat, Locale } from '../types'
+import type { Mode, TimeFormat, Locale, Interval } from '../types'
 import { TimezoneSelect } from './TimezoneSelect'
 import { TimeFormatToggle } from './TimeFormatToggle'
 import { ModeToggle } from './ModeToggle'
 import { LocaleSelect } from './LocaleSelect'
+import { IntervalToggle } from './IntervalToggle'
 import { AboutModal } from './AboutModal'
 
 type Props = {
@@ -16,6 +17,8 @@ type Props = {
   onModeChange: (mode: Mode) => void
   locale: Locale
   onLocaleChange: (locale: Locale) => void
+  interval: Interval
+  onIntervalChange: (interval: Interval) => void
 }
 
 export function SettingsMenu({
@@ -28,6 +31,8 @@ export function SettingsMenu({
   onModeChange,
   locale,
   onLocaleChange,
+  interval,
+  onIntervalChange,
 }: Props) {
   const [open, setOpen] = useState(false)
   const [aboutOpen, setAboutOpen] = useState(false)
@@ -81,6 +86,10 @@ export function SettingsMenu({
           <div className="flex items-center justify-between gap-4">
             <label className="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">Time format</label>
             <TimeFormatToggle timeFormat={timeFormat} onChange={onTimeFormatChange} />
+          </div>
+          <div className="flex items-center justify-between gap-4">
+            <label className="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">Interval</label>
+            <IntervalToggle interval={interval} onChange={onIntervalChange} />
           </div>
           <div className="flex items-center justify-between gap-4">
             <label className="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">View</label>

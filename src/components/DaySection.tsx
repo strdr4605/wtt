@@ -1,5 +1,5 @@
-import type { WeekDay, Hour, SlotKey, TimeFormat, Locale } from '../types'
-import { HOURS, makeSlotKey } from '../types'
+import type { WeekDay, SlotKey, TimeFormat, Locale, Interval } from '../types'
+import { makeSlotKey, getSlots } from '../types'
 import { useLocale } from '../hooks/useLocale'
 import { SlotButton } from './SlotButton'
 
@@ -11,10 +11,12 @@ type Props = {
   isToday?: boolean
   timeFormat: TimeFormat
   locale: Locale
+  interval: Interval
 }
 
-export function DaySection({ weekday, date, selectedSlots, onToggle, isToday, timeFormat, locale }: Props) {
-  const { formatWeekday, formatDate, formatHour } = useLocale(timeFormat, locale)
+export function DaySection({ weekday, date, selectedSlots, onToggle, isToday, timeFormat, locale, interval }: Props) {
+  const { formatWeekday, formatDate, formatTime } = useLocale(timeFormat, locale)
+  const slots = getSlots(interval)
   const isWeekend = weekday === 'saturday' || weekday === 'sunday'
 
   const label = date
@@ -31,12 +33,12 @@ export function DaySection({ weekday, date, selectedSlots, onToggle, isToday, ti
     <div className={`space-y-2 p-3 -mx-3 rounded-lg ${bgClass}`}>
       <h3 className="font-medium text-gray-900 dark:text-gray-100">{label}</h3>
       <div className="flex flex-wrap gap-2">
-        {HOURS.map((hour: Hour) => {
-          const key = makeSlotKey(weekday, hour)
+        {slots.map((slot) => {
+          const key = makeSlotKey(weekday, slot.hour, slot.minute)
           return (
             <SlotButton
               key={key}
-              hourLabel={formatHour(hour)}
+              hourLabel={formatTime(slot.hour, slot.minute)}
               selected={selectedSlots.has(key)}
               onToggle={() => onToggle(key)}
             />

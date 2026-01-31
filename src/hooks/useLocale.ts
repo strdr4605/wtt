@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import en from '../locales/en.json'
 import ro from '../locales/ro.json'
 import ru from '../locales/ru.json'
-import type { WeekDay, Hour, TimeFormat, Locale } from '../types'
+import type { WeekDay, Hour, TimeFormat, Locale, Minute } from '../types'
 
 type TranslationKey = keyof typeof en
 
@@ -49,7 +49,15 @@ export function useLocale(timeFormat: TimeFormat = '12h', locale: Locale = 'en')
     return formatters.hour12.format(date).toLowerCase().replace(' ', '')
   }
 
-  return { t, formatDate, formatWeekday, formatHour, locale }
+  const formatTime = (hour: Hour, minute: Minute): string => {
+    if (timeFormat === '24h') {
+      return `${hour}:${minute.toString().padStart(2, '0')}`
+    }
+    const date = new Date(2024, 0, 1, hour, minute)
+    return formatters.hour12.format(date).toLowerCase().replace(' ', '')
+  }
+
+  return { t, formatDate, formatWeekday, formatHour, formatTime, locale }
 }
 
 export function getUserLocale(): Locale {

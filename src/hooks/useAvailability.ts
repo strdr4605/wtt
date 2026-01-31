@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
-import type { Mode, SlotKey, TimeFormat, Locale } from '../types'
+import type { Mode, SlotKey, TimeFormat, Locale, Interval } from '../types'
 import { getMonday, addDays } from '../utils/dateUtils'
 import { getUserTimezone, getUserTimeFormat } from '../utils/timezoneUtils'
 import { getUserLocale } from './useLocale'
@@ -12,6 +12,7 @@ type PersistedState = {
   targetTimezone: string
   selectedSlots: SlotKey[]
   locale: Locale
+  interval: Interval
 }
 
 function loadState(): Partial<PersistedState> {
@@ -39,6 +40,7 @@ export function useAvailability() {
   const [localTimezone] = useState(() => getUserTimezone())
   const [targetTimezone, setTargetTimezone] = useState(() => loadState().targetTimezone ?? getUserTimezone())
   const [locale, setLocale] = useState<Locale>(() => loadState().locale ?? getUserLocale())
+  const [interval, setInterval] = useState<Interval>(() => loadState().interval ?? '1h')
 
   useEffect(() => {
     saveState({
@@ -47,8 +49,9 @@ export function useAvailability() {
       targetTimezone,
       selectedSlots: Array.from(selectedSlots),
       locale,
+      interval,
     })
-  }, [mode, timeFormat, targetTimezone, selectedSlots, locale])
+  }, [mode, timeFormat, targetTimezone, selectedSlots, locale, interval])
 
   const toggleSlot = useCallback((key: SlotKey) => {
     setSelectedSlots((prev) => {
@@ -113,5 +116,7 @@ export function useAvailability() {
     setTargetTimezone,
     locale,
     setLocale,
+    interval,
+    setInterval,
   }
 }
