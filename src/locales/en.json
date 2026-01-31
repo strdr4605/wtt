@@ -27,8 +27,8 @@
   "about.tip3": "Copy formatted availability text",
   "about.tip4": "Works offline as PWA",
   "about.github": "View on GitHub",
-  "about.issuePrompt": "Found a bug or have a feature request?",
-  "about.openIssue": "Open an issue",
+  "about.feedbackPrompt": "Found a bug or have feedback?",
+  "about.sendEmail": "Send an email",
   "preview.empty": "Select time slots to see preview",
   "timezone.you": "(You)"
 }

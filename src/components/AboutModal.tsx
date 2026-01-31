@@ -78,14 +78,12 @@ export function AboutModal({ open, onClose, locale }: Props) {
             {t('about.github')}
           </a>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            {t('about.issuePrompt')}{' '}
+            {t('about.feedbackPrompt')}{' '}
             <a
-              href="https://github.com/strdr4605/wtt/issues"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:wtt@strdr4605.com?subject=WTT Feedback"
               className="text-blue-600 dark:text-blue-400 hover:underline"
             >
-              {t('about.openIssue')}
+              {t('about.sendEmail')}
             </a>
           </p>
         </div>

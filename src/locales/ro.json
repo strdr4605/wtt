@@ -27,8 +27,8 @@
   "about.tip3": "Copiaza textul formatat cu disponibilitatea",
   "about.tip4": "Functioneaza offline ca PWA",
   "about.github": "Vezi pe GitHub",
-  "about.issuePrompt": "Ai gasit un bug sau ai o sugestie?",
-  "about.openIssue": "Deschide un issue",
+  "about.feedbackPrompt": "Ai gasit un bug sau ai feedback?",
+  "about.sendEmail": "Trimite un email",
   "preview.empty": "Selecteaza intervale pentru previzualizare",
   "timezone.you": "(Tu)"
 }

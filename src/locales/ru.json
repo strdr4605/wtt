@@ -27,8 +27,8 @@
   "about.tip3": "Скопируйте отформатированный текст",
   "about.tip4": "Работает офлайн как PWA",
   "about.github": "Смотреть на GitHub",
-  "about.issuePrompt": "Нашли баг или есть предложение?",
-  "about.openIssue": "Создать issue",
+  "about.feedbackPrompt": "Нашли баг или есть отзыв?",
+  "about.sendEmail": "Написать письмо",
   "preview.empty": "Выберите слоты для предпросмотра",
   "timezone.you": "(Вы)"
 }
