@@ -1,12 +1,17 @@
 import { useMemo } from 'react'
 import en from '../locales/en.json'
+import es from '../locales/es.json'
+import zh from '../locales/zh.json'
+import fr from '../locales/fr.json'
+import de from '../locales/de.json'
+import pt from '../locales/pt.json'
 import ro from '../locales/ro.json'
 import ru from '../locales/ru.json'
 import type { WeekDay, Hour, TimeFormat, Locale, Minute } from '../types'
 
 type TranslationKey = keyof typeof en
 
-const translations: Record<Locale, typeof en> = { en, ro, ru }
+const translations: Record<Locale, typeof en> = { en, es, zh, fr, de, pt, ro, ru }
 
 export function useLocale(timeFormat: TimeFormat = '12h', locale: Locale = 'en') {
   const messages = translations[locale]
@@ -62,6 +67,11 @@ export function useLocale(timeFormat: TimeFormat = '12h', locale: Locale = 'en')
 
 export function getUserLocale(): Locale {
   const lang = navigator.language.split('-')[0]
+  if (lang === 'es') return 'es'
+  if (lang === 'zh') return 'zh'
+  if (lang === 'fr') return 'fr'
+  if (lang === 'de') return 'de'
+  if (lang === 'pt') return 'pt'
   if (lang === 'ro') return 'ro'
   if (lang === 'ru') return 'ru'
   return 'en'

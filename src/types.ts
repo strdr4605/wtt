@@ -4,10 +4,15 @@ export type TimeFormat = '12h' | '24h'
 
 export type Interval = '1h' | '30min'
 
-export type Locale = 'en' | 'ro' | 'ru'
+export type Locale = 'en' | 'es' | 'zh' | 'fr' | 'de' | 'pt' | 'ro' | 'ru'
 
 export const LOCALES: { code: Locale; label: string }[] = [
   { code: 'en', label: 'EN' },
+  { code: 'es', label: 'ES' },
+  { code: 'zh', label: '中文' },
+  { code: 'fr', label: 'FR' },
+  { code: 'de', label: 'DE' },
+  { code: 'pt', label: 'PT' },
   { code: 'ro', label: 'RO' },
   { code: 'ru', label: 'RU' },
 ]
