@@ -30,5 +30,10 @@
   "about.feedbackPrompt": "Found a bug or have feedback?",
   "about.sendEmail": "Send an email",
   "preview.empty": "Select time slots to see preview",
-  "timezone.you": "(You)"
+  "timezone.you": "(You)",
+  "install.title": "Install WTT",
+  "install.description": "Add to your home screen for quick access",
+  "install.iosHint": "Safari → Share → Add to Home Screen",
+  "install.androidHint": "Chrome → Menu → Add to Home Screen",
+  "install.dismiss": "Maybe later"
 }

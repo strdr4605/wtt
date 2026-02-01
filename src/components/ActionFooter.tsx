@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import type { SlotKey, Mode, TimeFormat, Locale, Interval } from '../types'
 import { useLocale } from '../hooks/useLocale'
+import { useInstallPrompt } from '../hooks/useInstallPrompt'
 import { formatOutput } from '../utils/formatOutput'
 import { getWeekDates } from '../utils/dateUtils'
+import { InstallPrompt } from './InstallPrompt'
 
 type Props = {
   mode: Mode
@@ -20,6 +22,7 @@ export function ActionFooter({ mode, weekStart, selectedSlots, onClear, timeForm
   const { t, formatWeekday, formatTime, formatDate } = useLocale(timeFormat, locale)
   const [copied, setCopied] = useState(false)
   const [confirmClear, setConfirmClear] = useState(false)
+  const { showPrompt, trackCopy, dismissPrompt } = useInstallPrompt()
 
   const count = selectedSlots.size
 
@@ -42,6 +45,7 @@ export function ActionFooter({ mode, weekStart, selectedSlots, onClear, timeForm
 
     // Track copy event
     window.umami?.track('Copy availability', { slots: count, mode, locale })
+    trackCopy()
   }
 
   const handleClear = () => {
@@ -55,7 +59,9 @@ export function ActionFooter({ mode, weekStart, selectedSlots, onClear, timeForm
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 px-4 pt-4 safe-bottom">
+    <>
+      {showPrompt && <InstallPrompt locale={locale} onDismiss={dismissPrompt} />}
+      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 px-4 pt-4 safe-bottom">
       <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
         <span className="text-sm text-gray-600 dark:text-gray-400">
           {count === 1 ? t('slots.selectedOne') : t('slots.selected', { count })}
@@ -80,5 +86,6 @@ export function ActionFooter({ mode, weekStart, selectedSlots, onClear, timeForm
         </div>
       </div>
     </div>
+    </>
   )
 }

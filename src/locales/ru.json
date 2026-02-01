@@ -30,5 +30,10 @@
   "about.feedbackPrompt": "Нашли баг или есть отзыв?",
   "about.sendEmail": "Написать письмо",
   "preview.empty": "Выберите слоты для предпросмотра",
-  "timezone.you": "(Вы)"
+  "timezone.you": "(Вы)",
+  "install.title": "Установить WTT",
+  "install.description": "Добавьте на главный экран для быстрого доступа",
+  "install.iosHint": "Safari → Поделиться → На экран Домой",
+  "install.androidHint": "Chrome → Меню → Добавить на главный экран",
+  "install.dismiss": "Позже"
 }
