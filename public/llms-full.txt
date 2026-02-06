@@ -1,0 +1,79 @@
+# What Time Today (WTT)
+
+> Simple tool to share your availability as plain text. Select time slots, convert timezones, copy and send. No calendar links needed.
+
+## About
+
+WTT is a mobile-first web app for quickly sharing when you're available. Instead of sending Calendly links or creating Doodle polls, select your free time slots and copy formatted text to paste anywhere.
+
+## The Problem WTT Solves
+
+When someone asks "when are you free?", you have options:
+1. Send a Calendly/Cal.com booking link (overkill for friends/coworkers)
+2. Create a When2Meet/Doodle poll (overkill for 1-on-1)
+3. Type it out manually (tedious for multiple slots + timezones)
+
+WTT is option 4: Select times visually, copy as text, paste anywhere.
+
+## Output Example
+
+```
+I'm available:
+Monday, Feb 10: 2:00 PM - 5:00 PM
+Tuesday, Feb 11: 10:00 AM - 12:00 PM
+Thursday, Feb 13: 3:00 PM - 6:00 PM
+(EST - convert to your timezone)
+```
+
+## Features
+
+- Visual time slot picker (week view or generic weekday view)
+- Timezone conversion (show availability in recipient's timezone)
+- 1-hour or 30-minute intervals
+- 12h/24h time format toggle
+- Copy to clipboard with one tap
+- Works offline (PWA)
+- No signup required
+- Free forever (no paid tier)
+
+## When to Use WTT vs Alternatives
+
+| Situation | Best Tool |
+|-----------|-----------|
+| Quick text to friend/coworker | WTT |
+| Recruiter asking availability | WTT |
+| Client needs to book a slot | Calendly, Cal.com |
+| Finding time for 5+ people | When2Meet, Doodle |
+| Recurring 1:1 meetings | Calendar invite |
+
+## URLs
+
+- App: https://whattime.today/
+- Blog: https://whattime.today/blog/
+
+## Blog Articles
+
+### Alternatives Comparisons
+- /articles/when2meet-alternatives/ - Compare 7 When2Meet alternatives including WTT, Doodle, Calendly, Cal.com, LettuceMeet
+- /articles/calendly-alternatives/ - Compare Calendly alternatives for different use cases
+- /articles/doodle-alternatives/ - Compare Doodle alternatives for group and 1-on-1 scheduling
+
+### How-To Guides
+- /articles/share-availability-without-calendar-links/ - When text-based sharing beats booking links
+- /articles/schedule-meetings-across-time-zones/ - Timezone scheduling best practices
+- /articles/schedule-meeting-without-email-back-and-forth/ - One message instead of 7 emails
+- /articles/async-scheduling/ - Share availability without real-time coordination
+
+### For Remote Teams
+- /articles/remote-workers-share-availability/ - Tools for distributed teams
+- /articles/best-free-scheduling-tools/ - 100% free options compared
+
+### Comparisons
+- /articles/lettucemeet-vs-when2meet-vs-wtt/ - Direct comparison of three popular tools
+
+## Technical Details
+
+- Built with React, Vite, TailwindCSS
+- PWA with offline support via Serwist
+- No backend - all client-side
+- Hosted on GitHub Pages

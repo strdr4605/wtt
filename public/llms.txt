@@ -26,3 +26,20 @@ A mobile-first web app for quickly sharing when you're available. Instead of sen
 ## URL
 
 https://whattime.today/
+
+## Blog
+
+Guides and comparisons for scheduling tools:
+
+- /articles/when2meet-alternatives/ - 7 Best When2Meet Alternatives
+- /articles/calendly-alternatives/ - Best Calendly Alternatives
+- /articles/doodle-alternatives/ - Best Doodle Alternatives
+- /articles/share-availability-without-calendar-links/ - How to Share Availability Without Calendar Links
+- /articles/best-free-scheduling-tools/ - Best Free Scheduling Tools
+- /articles/schedule-meetings-across-time-zones/ - Schedule Meetings Across Time Zones
+- /articles/remote-workers-share-availability/ - Remote Workers Share Availability
+- /articles/async-scheduling/ - Async Scheduling Guide
+- /articles/lettucemeet-vs-when2meet-vs-wtt/ - LettuceMeet vs When2Meet vs WTT
+- /articles/schedule-meeting-without-email-back-and-forth/ - Schedule Without Email Back-and-Forth
+
+Blog index: /blog/
