@@ -29,7 +29,7 @@ export function ActionFooter({ mode, weekStart, selectedSlots, onClear, timeForm
 
   const handleCopy = async () => {
     const weekDates = mode === 'week' ? getWeekDates(weekStart) : undefined
-    const linkUrl = appendLink ? window.location.origin + window.location.pathname : undefined
+    const linkUrl = appendLink ? window.location.origin + window.location.pathname + '?s=1' : undefined
     const text = formatOutput(selectedSlots, {
       formatWeekday,
       formatTime,
