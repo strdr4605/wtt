@@ -1,6 +1,6 @@
 {
-  "app.title": "WTT",
-  "app.subtitle": "What Time Today",
+  "app.title": "What Time Today",
+  "app.subtitle": "Выберите и скопируйте временные слоты",
   "mode.week": "Неделя",
   "mode.generic": "Общий",
   "nav.today": "Сегодня",
@@ -16,6 +16,7 @@
   "settings.timezone": "Часовой пояс",
   "settings.timeFormat": "Формат времени",
   "settings.interval": "Интервал",
+  "settings.appendLink": "Поделиться ссылкой",
   "settings.view": "Вид",
   "settings.language": "Язык",
   "settings.about": "О приложении",

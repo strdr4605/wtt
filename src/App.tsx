@@ -3,6 +3,7 @@ import { useAvailability } from './hooks/useAvailability'
 import { ModeToggle } from './components/ModeToggle'
 import { TimeFormatToggle } from './components/TimeFormatToggle'
 import { IntervalToggle } from './components/IntervalToggle'
+import { AppLinkToggle } from './components/AppLinkToggle'
 import { TimezoneSelect } from './components/TimezoneSelect'
 import { LocaleSelect } from './components/LocaleSelect'
 import { AboutButton } from './components/AboutButton'
@@ -35,6 +36,8 @@ function App() {
     setLocale,
     interval,
     setInterval,
+    appendLink,
+    setAppendLink,
   } = useAvailability()
 
   const { t } = useLocale(timeFormat, locale)
@@ -42,14 +45,14 @@ function App() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 pb-20">
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4">
-        <div className="max-w-5xl mx-auto space-y-3">
-          <div className="flex items-center justify-between gap-4">
-            <h1 className="text-xl font-bold leading-tight">
-              {t('app.title')}
-              <span className="block md:inline text-sm font-normal text-gray-500 dark:text-gray-400">
-                {' '}{t('app.subtitle')}
-              </span>
-            </h1>
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center justify-between gap-4 mb-3">
+            <div>
+              <h1 className="text-xl font-bold leading-tight">{t('app.title')}</h1>
+              <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                {t('app.subtitle')}
+              </p>
+            </div>
             <div className="md:hidden">
               <SettingsMenu
                 localTimezone={localTimezone}
@@ -63,6 +66,8 @@ function App() {
                 onLocaleChange={setLocale}
                 interval={interval}
                 onIntervalChange={setInterval}
+                appendLink={appendLink}
+                onAppendLinkChange={setAppendLink}
               />
             </div>
             <div className="hidden md:flex gap-2">
@@ -74,21 +79,26 @@ function App() {
               />
               <TimeFormatToggle timeFormat={timeFormat} onChange={setTimeFormat} />
               <IntervalToggle interval={interval} onChange={setInterval} />
-              <ModeToggle mode={mode} onChange={setMode} />
-              <LocaleSelect locale={locale} onChange={setLocale} />
               <AboutButton locale={locale} />
             </div>
           </div>
-          {mode === 'week' && (
-            <WeekNav
-              weekStart={weekStart}
-              onToday={goToToday}
-              onPrev={goToPrev}
-              onNext={goToNext}
-              canGoPrev={canGoPrev}
-              locale={locale}
-            />
-          )}
+          <div className="flex items-center justify-between gap-4">
+            {mode === 'week' && (
+              <WeekNav
+                weekStart={weekStart}
+                onToday={goToToday}
+                onPrev={goToPrev}
+                onNext={goToNext}
+                canGoPrev={canGoPrev}
+                locale={locale}
+              />
+            )}
+            <div className="hidden md:flex gap-2 ml-auto">
+              <ModeToggle mode={mode} onChange={setMode} />
+              <LocaleSelect locale={locale} onChange={setLocale} />
+              <AppLinkToggle appendLink={appendLink} onChange={setAppendLink} />
+            </div>
+          </div>
         </div>
       </header>
 
@@ -103,6 +113,21 @@ function App() {
             locale={locale}
             interval={interval}
           />
+          {selectedSlots.size > 0 && (
+            <div className="mt-6 mb-4">
+              <OutputPreview
+                mode={mode}
+                weekStart={weekStart}
+                selectedSlots={selectedSlots}
+                timeFormat={timeFormat}
+                locale={locale}
+                localTimezone={localTimezone}
+                targetTimezone={targetTimezone}
+                interval={interval}
+                appendLink={appendLink}
+              />
+            </div>
+          )}
         </div>
         <div className="hidden md:flex gap-6">
           <div className="flex-1 min-w-0">
@@ -127,6 +152,7 @@ function App() {
               localTimezone={localTimezone}
               targetTimezone={targetTimezone}
               interval={interval}
+              appendLink={appendLink}
             />
           </div>
         </div>
@@ -142,6 +168,7 @@ function App() {
         targetTimezone={targetTimezone}
         locale={locale}
         interval={interval}
+        appendLink={appendLink}
       />
     </div>
   )

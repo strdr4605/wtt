@@ -1,6 +1,6 @@
 {
-  "app.title": "WTT",
-  "app.subtitle": "What Time Today",
+  "app.title": "What Time Today",
+  "app.subtitle": "Sélectionnez et copiez les créneaux à partager",
   "mode.week": "Semaine",
   "mode.generic": "Générique",
   "nav.today": "Aujourd'hui",
@@ -16,6 +16,7 @@
   "settings.timezone": "Fuseau horaire",
   "settings.timeFormat": "Format de l'heure",
   "settings.interval": "Intervalle",
+  "settings.appendLink": "Partager le lien",
   "settings.view": "Vue",
   "settings.language": "Langue",
   "settings.about": "À propos",

@@ -1,6 +1,6 @@
 {
-  "app.title": "WTT",
-  "app.subtitle": "What Time Today",
+  "app.title": "What Time Today",
+  "app.subtitle": "Selectează și copiază intervale pentru a le partaja",
   "mode.week": "Săptămâna",
   "mode.generic": "Generic",
   "nav.today": "Azi",
@@ -16,6 +16,7 @@
   "settings.timezone": "Fus orar",
   "settings.timeFormat": "Format oră",
   "settings.interval": "Interval",
+  "settings.appendLink": "Partajează link",
   "settings.view": "Vizualizare",
   "settings.language": "Limbă",
   "settings.about": "Despre",

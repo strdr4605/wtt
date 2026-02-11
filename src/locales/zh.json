@@ -1,6 +1,6 @@
 {
-  "app.title": "WTT",
-  "app.subtitle": "What Time Today",
+  "app.title": "What Time Today",
+  "app.subtitle": "选择并复制时段分享",
   "mode.week": "本周",
   "mode.generic": "通用",
   "nav.today": "今天",
@@ -16,6 +16,7 @@
   "settings.timezone": "时区",
   "settings.timeFormat": "时间格式",
   "settings.interval": "间隔",
+  "settings.appendLink": "分享链接",
   "settings.view": "视图",
   "settings.language": "语言",
   "settings.about": "关于",

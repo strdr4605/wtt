@@ -1,6 +1,6 @@
 {
-  "app.title": "WTT",
-  "app.subtitle": "What Time Today",
+  "app.title": "What Time Today",
+  "app.subtitle": "Select & copy time slots to share",
   "mode.week": "This Week",
   "mode.generic": "Generic",
   "nav.today": "Today",
@@ -16,6 +16,7 @@
   "settings.timezone": "Timezone",
   "settings.timeFormat": "Time format",
   "settings.interval": "Interval",
+  "settings.appendLink": "Share link",
   "settings.view": "View",
   "settings.language": "Language",
   "settings.about": "About",
