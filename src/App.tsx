@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useLocale } from './hooks/useLocale'
 import { useAvailability } from './hooks/useAvailability'
 import { ModeToggle } from './components/ModeToggle'
@@ -41,6 +42,14 @@ function App() {
   } = useAvailability()
 
   const { t } = useLocale(timeFormat, locale)
+
+  // Track shared link visits
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.has('s')) {
+      window.umami?.track('Shared link opened')
+    }
+  }, [])
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 pb-20">
